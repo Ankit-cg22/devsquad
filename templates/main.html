@@ -1,0 +1,21 @@
+<!--  this file will act as a wrapper for other templates  -->
+<!--  our benefit in that is that we can have some styles here and it will get shared among all other templates -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevSquad</title>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <!-- since we want navabar is every page we include it here  -->
+
+    {% block content %}
+    <!--  this is to specify the area where we want to place our child templates  -->
+
+    {% endblock %}
+  </body>
+</html>
