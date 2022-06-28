@@ -28,6 +28,9 @@ class Squad(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     # auto_now_add takes a timestamp only when we add it the first time 
 
+    class Meta:
+        ordering = ['-updated' , '-created']
+
     def __str__(self):
         return self.name
 

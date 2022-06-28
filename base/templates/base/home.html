@@ -3,9 +3,13 @@
 <h1>Home template</h1>
 
 <div>
+  <a href="{% url 'create-squad' %}"> Create Squad </a>
+
   <div>
     {% for c in content %}
     <div>
+      <a href="{% url 'update-squad' c.id %} "> Update </a>
+      <a href="{% url 'delete-squad' c.id %} "> Delete </a>
       <span>@{{c.host.username}}</span>
       <!-- c.host gives us access to the user -->
       <a href="{% url 'squad' c.id %}">
