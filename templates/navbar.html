@@ -2,4 +2,22 @@
   <h1>Logo</h1>
 </a>
 
+<!-- search form  -->
+<form method="GET" action="{% url 'home' %}">
+  <input type="text" name="q" placeholder="Search Squads... " />
+  <!-- when someone enters something and hits enter this is added to url as ?q=xyz , hence filtering the content on home page -->
+</form>
+
+{% if request.user.is_authenticated %}
+
+<p>{{ request.user.username }}</p>
+<a href="{% url 'logout' %}">Logout</a>
+
+{% else %}
+
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'register' %}">Register</a>
+
+{% endif %}
+
 <hr />

@@ -13,6 +13,14 @@
     {% include 'navbar.html' %}
     <!-- since we want navabar is every page we include it here  -->
 
+    {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+    {% endif %}
+
     {% block content %}
     <!--  this is to specify the area where we want to place our child templates  -->
 
