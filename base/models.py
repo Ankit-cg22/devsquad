@@ -22,7 +22,7 @@ class Squad(models.Model):
 
     name = models.CharField(max_length=200)
     description = models.TextField(null = True , blank = True) 
-    # squadMembers  
+    squadMembers = models.ManyToManyField(User , related_name = "squadMembers" , blank = True) 
     updated = models.DateTimeField(auto_now = True)
     # auto_now takes a timestamp every time the model is updated 
     created = models.DateTimeField(auto_now_add = True)

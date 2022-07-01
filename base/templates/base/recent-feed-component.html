@@ -1,0 +1,22 @@
+<h2>Recent Activity</h2>
+<hr />
+<div class="recent-feeds-container">
+  {% for feed in recent_feed %}
+
+  <a class="single-feed" href="{% url 'squad' feed.squad.id %}">
+    <small>@{{ feed.user }} </small>
+
+    <small>commented at "{{ feed.squad }}"</small>
+
+    <p>
+      {{ feed }} {% if feed.body > 50 %}
+      <span>....</span>
+      {% endif %}
+    </p>
+
+    <small>{{ feed.created|timesince }} ago</small>
+    <hr />
+  </a>
+
+  {% endfor %}
+</div>

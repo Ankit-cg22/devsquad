@@ -1,4 +1,67 @@
 {% extends 'main.html' %} {% block content %}
-<h1>About template</h1>
-<h5>Welcome to Squad : {{ squad.name }}</h5>
+
+<style>
+  .squad-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .squadMembers-container {
+    width: 25%;
+  }
+  .sqaud-info-container {
+    width: 75%;
+  }
+</style>
+
+<div class="squad-container">
+  <div class="sqaud-info-container">
+    <h1>Welcome to Squad : {{ squad.name }}</h1>
+
+    <p>{{ squad.description }}</p>
+
+    <div class="chats-wrapper">
+      <div>Chats</div>
+      <hr />
+
+      <div class="chats-container">
+        {% for chat in chats %}
+
+        <div class="chat">
+          <small>@{{chat.user}} {{chat.created|timesince}} ago</small>
+          <p>{{chat.body}}</p>
+        </div>
+
+        {% if chat.user == request.user %}
+        <a href="{% url 'delete-chat' chat.id %}">Delete</a>
+        {% endif %}
+        <hr />
+        {% endfor %}
+      </div>
+
+      {% if user.is_authenticated %}
+
+      <div class="comment-form">
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="text" name="body" placeholder="write your message ..." />
+          <input type="submit" value="Post" />
+        </form>
+      </div>
+
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="squadMembers-container">
+    <h3>Squad Members</h3>
+    <hr />
+    {% for member in squadMembers %}
+    <div>
+      <p>@{{ member.username }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock content %}

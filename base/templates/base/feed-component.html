@@ -1,0 +1,21 @@
+<div>
+  {% for squad in squads %}
+  <div>
+    {% if request.user == squad.host %}
+
+    <a href="{% url 'update-squad' squad.id %} "> Update </a>
+    <a href="{% url 'delete-squad' squad.id %} "> Delete </a>
+
+    {% endif %}
+
+    <span>@{{squad.host.username}}</span>
+    <!-- c.host gives us access to the user -->
+    <a href="{% url 'squad' squad.id %}">
+      <h5>{{ squad.name }}</h5>
+    </a>
+
+    <small>{{ squad.topic.name }}</small>
+    <hr />
+  </div>
+  {% endfor %}
+</div>

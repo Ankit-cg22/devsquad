@@ -18,46 +18,32 @@
     padding: 10px;
     margin-top: 15px;
   }
+
+  .squads-container {
+    width: 50%;
+  }
+  .recent-activity-container {
+    width: 25%;
+  }
+
+  .single-feed {
+    color: black;
+    text-decoration: none;
+  }
 </style>
 
 <div class="home-container">
-  <div class="side-bar">
-    <h3>Topics</h3>
-    <hr />
-    <div>
-      {% for topic in topics %}
-      <div class="single-topic">
-        <a href=" {% url 'home'  %}?q={{topic.name}} ">{{ topic.name }}</a>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+  <div class="side-bar">{% include 'base/topics-component.html' %}</div>
 
-  <div>
+  <div class="squads-container">
     <h5>{{ squad_count }} matching squads found</h5>
     <a href="{% url 'create-squad' %}"> Create Squad </a>
 
-    <div>
-      {% for squad in squads %}
-      <div>
-        {% if request.user == squad.host %}
+    {% include 'base/feed-component.html' %}
+  </div>
 
-        <a href="{% url 'update-squad' squad.id %} "> Update </a>
-        <a href="{% url 'delete-squad' squad.id %} "> Delete </a>
-
-        {% endif %}
-
-        <span>@{{squad.host.username}}</span>
-        <!-- c.host gives us access to the user -->
-        <a href="{% url 'squad' squad.id %}">
-          <h5>{{ squad.name }}</h5>
-        </a>
-
-        <small>{{ squad.topic.name }}</small>
-        <hr />
-      </div>
-      {% endfor %}
-    </div>
+  <div class="recent-activity-container">
+    {% include 'base/recent-feed-component.html' %}
   </div>
 </div>
 {% endblock content %}
