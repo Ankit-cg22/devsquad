@@ -2,11 +2,15 @@
 <!--  our benefit in that is that we can have some styles here and it will get shared among all other templates -->
 
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}"  />
     <title>DevSquad</title>
   </head>
   <body>

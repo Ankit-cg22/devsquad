@@ -8,7 +8,11 @@
 
     {% endif %}
 
-    <span>@{{squad.host.username}}</span>
+    <span
+      ><a href="{% url 'profile' squad.host.id %}"
+        >@{{squad.host.username}}</a
+      ></span
+    >
     <!-- c.host gives us access to the user -->
     <a href="{% url 'squad' squad.id %}">
       <h5>{{ squad.name }}</h5>

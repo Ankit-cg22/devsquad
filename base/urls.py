@@ -11,5 +11,7 @@ urlpatterns = [
     path('login/', views.loginController, name="login"),
     path('logout/', views.logoutController, name="logout"),
     path('register/', views.registerController, name="register"),
-    path('delete-chat/<str:pk>/', views.deleteChat, name="delete-chat")
+    path('delete-chat/<str:pk>/', views.deleteChat, name="delete-chat"),
+    path('profile/<str:pk>/', views.profile, name="profile"),
+    path('update-profile/', views.updateProfile, name="update-profile"),
 ]

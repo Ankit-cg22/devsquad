@@ -1,0 +1,35 @@
+{% extends 'main.html' %} {% block content %} {% load static %}
+<style>
+  .main-container {
+    display: flex;
+  }
+
+  .about {
+    width: 75%;
+  }
+
+  .recent-activity {
+    width: 25%;
+  }
+
+  .profile-image {
+    height: 100px;
+    border-radius: 50%;
+  }
+</style>
+
+<div class="main-container">
+  <div class="about">
+    <img class="profile-image" src="{% static 'images/profile.png' %}" />
+    <h1>{{ user.username }}</h1>
+
+    {% if user.id == request.user.id %}
+    <a href="{% url 'update-profile' %}">Edit Profile</a>
+    {% endif %} {% include 'base/feed-component.html' %}
+  </div>
+
+  <div class="recent-activity">
+    {% include 'base/recent-feed-component.html' %}
+  </div>
+</div>
+{% endblock content %}

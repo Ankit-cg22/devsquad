@@ -8,7 +8,7 @@ from django.db.models import Q
 # import the model into this file
 from django.db.models import Q
 from django.contrib import messages  # flash messages
-from .forms import SquadForm
+from .forms import SquadForm, UserForm
 from django.contrib.auth import authenticate, login, logout
 # for restricting users from certain pages  based on if they are logged inor not
 from django.contrib.auth.decorators import login_required
@@ -106,7 +106,7 @@ def home(request):
 def squad(request, pk):
     squad = Squad.objects.get(id=pk)
     messages = squad.message_set.all().order_by('-created')
-    squadMembers = squad.squadMembers.all()
+
     # handling the POST requests when someone submits
     if request.method == 'POST':
         message = Message.objects.create(
@@ -117,6 +117,8 @@ def squad(request, pk):
         squad.squadMembers.add(request.user)
         return redirect('squad', pk=squad.id)
 
+    squadMembers = squad.squadMembers.all()
+
     context = {"squad": squad, "chats": messages, "squadMembers": squadMembers}
     return render(request, 'base/squad.html', context)
 
@@ -126,13 +128,24 @@ def squad(request, pk):
 
 @login_required(login_url='login')
 def createSquad(request):
+
     if request.method == 'POST':
-        form = SquadForm(request.POST)
-        if(form.is_valid()):
-            form.save()
-            return redirect('home')
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+
+        squad = Squad.objects.create(
+            host=request.user,
+            topic=topic,
+            name=request.POST.get('name'),
+            description=request.POST.get('description'),
+        )
+        squad.squadMembers.add(request.user)
+        squad.save()
+        return redirect('home')
+
     form = SquadForm()
-    context = {"form": form}
+    topics = Topic.objects.all()
+    context = {"form": form, "topics": topics}
     return render(request, 'base/squad_form.html', context)
 
 # update
@@ -142,17 +155,23 @@ def createSquad(request):
 def updateSquad(request, pk):
     squad = Squad.objects.get(id=pk)
     form = SquadForm(instance=squad)  # to prefill the data
-    context = {'form': form}
+    topics = Topic.objects.all()
+    context = {'form': form, "topics": topics, "squad": squad}
 
     if request.user != squad.host:
         return HttpResponse('You are allowed for this action !')
 
     # to save the data to db
     if request.method == 'POST':
-        form = SquadForm(request.POST, instance=squad)
-        if form.is_valid:
-            form.save()
-            return redirect('home')
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+
+        squad.name = request.POST.get('name')
+        squad.description = request.POST.get('description')
+        squad.topic = topic
+        squad.save()
+
+        return redirect('home')
 
     return render(request, 'base/squad_form.html', context)
 
@@ -180,3 +199,26 @@ def deleteChat(request, pk):
         return redirect('home')
 
     return render(request, 'base/delete.html', {'obj': message})
+
+
+def profile(request, pk):
+    user = User.objects.get(id=pk)
+    squads = user.squad_set.all()
+    recent_feed = user.message_set.all()[:10]
+    context = {"user": user, "squads": squads, "recent_feed": recent_feed}
+    return render(request, 'base/profile.html', context)
+
+
+@login_required(login_url="home")
+def updateProfile(request):
+    user = request.user
+    form = UserForm(instance=user)
+    context = {"form": form}
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', pk=user.id)
+
+    return render(request, 'base/update-profile.html', context)
