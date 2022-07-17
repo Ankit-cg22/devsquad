@@ -20,7 +20,7 @@
 
 <div class="main-container">
   <div class="about">
-    <img class="profile-image" src="{% static 'images/profile.png' %}" />
+    <img class="profile-image" src="{{ user.profilePicture.url }}" />
     <h1>{{ user.username }}</h1>
 
     {% if user.id == request.user.id %}

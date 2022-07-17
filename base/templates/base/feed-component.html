@@ -8,8 +8,9 @@
 
     {% endif %}
 
-    <span
-      ><a href="{% url 'profile' squad.host.id %}"
+    <span>
+      <img height="50" src="{{ squad.host.profilePicture.url }}" />
+      <a href="{% url 'profile' squad.host.id %}"
         >@{{squad.host.username}}</a
       ></span
     >

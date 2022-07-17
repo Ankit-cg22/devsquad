@@ -2,8 +2,8 @@ from pydoc import describe
 from urllib.request import Request
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Squad, Topic, Message
-from django.contrib.auth.models import User
+from .models import Squad, Topic, Message , User
+
 from django.db.models import Q
 # import the model into this file
 from django.db.models import Q
@@ -12,7 +12,8 @@ from .forms import SquadForm, UserForm
 from django.contrib.auth import authenticate, login, logout
 # for restricting users from certain pages  based on if they are logged inor not
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm
 # Create your views here.
 
 
@@ -23,13 +24,13 @@ def loginController(request):
         return redirect('home')
 
     if request.method == 'POST':
-        username = request.POST.get('username').lower()
+        email = request.POST.get('email').lower()
         password = request.POST.get('password')
 
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(email = email)
 
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(request, email = email, password=password)
 
             if user is not None:
                 # this registers a session and logs in the user in the browser
@@ -57,7 +58,7 @@ def registerController(request):
     # handling the post request once user hits register button
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             # If you call save() with commit=False , then it will return an object that hasn't yet been saved to the database. In this case, it's up to you to call save() on the resulting model instance.
@@ -75,7 +76,7 @@ def registerController(request):
             messages.error(request, "An error occured while registration !")
 
     page = "register"
-    form = UserCreationForm()
+    form = CustomUserCreationForm()
     context = {"page": page, "form": form}
     return render(request, 'base/signup_login.html', context)
 
@@ -216,7 +217,7 @@ def updateProfile(request):
     context = {"form": form}
 
     if request.method == 'POST':
-        form = UserForm(request.POST, instance=user)
+        form = UserForm(request.POST, request.FILES , instance=user)
         if form.is_valid():
             form.save()
             return redirect('profile', pk=user.id)

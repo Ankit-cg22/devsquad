@@ -1,7 +1,16 @@
+from tkinter.tix import Tree
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# importing the User model which is in built by django
-from django.contrib.auth.models import User 
+class User(AbstractUser):
+    name = models.CharField(max_length=200 , null=True , )
+    email = models.EmailField(unique = True , null = True)
+    bio = models.TextField(null = True)
+    profilePicture = models.ImageField(null = True , default = "profile.png") 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+
 
 # Create your models here.
 

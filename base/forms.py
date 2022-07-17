@@ -5,9 +5,8 @@ in this file we create the forms that we need
 
 from dataclasses import fields
 from django.forms import ModelForm
-from .models import Squad
-from django.contrib.auth.models import User
-
+from .models import Squad ,User
+from django.contrib.auth.forms import UserCreationForm
 
 class SquadForm(ModelForm):
     class Meta:
@@ -19,9 +18,13 @@ class SquadForm(ModelForm):
         # we will automatically set the host as the user who is logged in
         # and for squadMemebers , they get added automatically when they interact with the squad
 
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['name' , 'username' , 'email' , 'password1' , 'password2']
 
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = [ 'profilePicture', 'name' ,'username', 'email' ,'bio' ]
         exclude = []

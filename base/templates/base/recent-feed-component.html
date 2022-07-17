@@ -3,8 +3,9 @@
 <div class="recent-feeds-container">
   {% for feed in recent_feed %}
 
-  <a href="{% url 'profile' feed.user.id %}"
-    ><small>@{{ feed.user }} </small></a
+  <a href="{% url 'profile' feed.user.id %}">
+    <img height="50" src="{{ feed.user.profilePicture.url }}" />
+    <small>@{{ feed.user }} </small></a
   >
 
   <small

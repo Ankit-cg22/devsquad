@@ -2,15 +2,8 @@
 
 <h1>Edit Profile</h1>
 
-<form action="" method="POST">
-  {% csrf_token %}
-
-  <div squad="form-group">
-    <label for="profile-picture"> Profile Picture </label>
-    <input name="profile-picture" id="profile-picture" type="file" />
-  </div>
-
-  {% for field in form %}
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %} {% for field in form %}
   <div class="form-group">
     <label for="{{field.label}}">{{field.label}}</label>
     {{field}}

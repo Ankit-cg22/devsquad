@@ -28,6 +28,7 @@
         {% for chat in chats %}
 
         <div class="chat">
+          <img height="50" src="{{ chat.user.profilePicture.url }}" />
           <small>@{{chat.user}} {{chat.created|timesince}} ago</small>
           <p>{{chat.body}}</p>
         </div>
@@ -58,6 +59,7 @@
     <hr />
     {% for member in squadMembers %}
     <div>
+      <img height="50" src="{{member.profilePicture.url }}" />
       <p>@{{ member.username }}</p>
     </div>
     {% endfor %}
