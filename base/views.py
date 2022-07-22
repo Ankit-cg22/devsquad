@@ -92,8 +92,8 @@ def home(request):
 
     # get all the topics so that we display them on our home page
     topics = Topic.objects.all()
-    # squad_count = squads.count()
-    squad_count = 0
+    squad_count = squads.count()
+    # squad_count = 0
 
     # getting recent activities ,only the 10 most recent
     recent_feed = Message.objects.all().order_by(
