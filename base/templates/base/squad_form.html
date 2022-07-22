@@ -1,38 +1,87 @@
 {% extends 'main.html' %} {% block content %}
 
-<div>
-  <form method="POST" action="">
-    {% csrf_token %}
+<style>
+  .main-container {
+    width: 100%;
+  }
+  .sub-container {
+    margin: 20px auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgba(133, 220, 186, 0.5);
+    padding: 10px;
+  }
 
-    <div class="form-group">
-      <label for="squad-topic">Topic</label>
-      <input
-        required
-        type="text"
-        name="topic"
-        list="topic-list"
-        value="{{ squad.topic.name }}"
-      />
-      <datalist id="topic-list">
-        <select id="room-topic">
-          {% for topic in topics %}
-          <option value="{{ topic.name }}">{{ topic.name }}</option>
-          {% endfor %}
-        </select>
-      </datalist>
-    </div>
+  .form-group {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
 
-    <div class="form-group">
-      <label for="squad_name">Squad Name</label>
-      {{form.name}}
-    </div>
-    <div class="form-group">
-      <label for="squad_description">Desription</label>
-      {{form.description}}
-    </div>
+  .form-group label {
+    font-size: 20px;
+  }
 
-    <input type="submit" value="Submit" />
-  </form>
+  .form-group input {
+    width: 70%;
+    padding: 10px 20px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    border: 3px solid rgba(133, 220, 186, 0.5);
+  }
+
+  .action-button {
+    padding: 10px;
+    /* margin-right: 10px; */
+    background-color: rgba(133, 220, 186, 1);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 100%;
+  }
+</style>
+
+<div class="main-container">
+  <div class="sub-container">
+    <form method="POST" action="">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="squad-topic">Topic</label>
+        <input
+          required
+          type="text"
+          name="topic"
+          list="topic-list"
+          value="{{ squad.topic.name }}"
+        />
+        <datalist id="topic-list">
+          <select id="room-topic">
+            {% for topic in topics %}
+            <option value="{{ topic.name }}">{{ topic.name }}</option>
+            {% endfor %}
+          </select>
+        </datalist>
+      </div>
+
+      <div class="form-group">
+        <label for="squad_name">Squad Name</label>
+        {{form.name}}
+      </div>
+      <div class="form-group">
+        <label for="squad_description">Desription</label>
+        {{form.description}}
+      </div>
+
+      <input type="submit" value="Submit" class="action-button" />
+    </form>
+  </div>
 </div>
-
 {% endblock content %}
