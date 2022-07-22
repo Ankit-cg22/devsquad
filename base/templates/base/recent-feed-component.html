@@ -1,26 +1,77 @@
-<h2>Recent Activity</h2>
+<style>
+  .feed-profile-info {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    margin-bottom: 20px;
+    min-height: 70px;
+  }
+
+  .container-2 {
+    font-size: 1.2rem;
+    font-weight: 400px;
+    margin-top: 20px;
+  }
+
+  .feed-info-sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+  }
+
+  .comment-brief {
+    padding: 10px;
+    background-color: rgba(133, 220, 186, 0.8);
+    margin-top: 20px;
+    margin: 20px 10px;
+    border-radius: 10px;
+  }
+
+  .recent-feeds-container {
+    background-color: rgba(133, 220, 186, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .feed-header {
+    color: rgba(62, 61, 61, 0.8);
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+</style>
+
+<h2 class="feed-header">Recent Activity</h2>
 <hr />
 <div class="recent-feeds-container">
   {% for feed in recent_feed %}
 
-  <a href="{% url 'profile' feed.user.id %}">
-    <img height="50" src="{{ feed.user.profilePicture.url }}" />
-    <small>@{{ feed.user }} </small></a
-  >
+  <div class="feed-profile-info">
+    <a href="{% url 'profile' feed.user.id %}" class="feed-info-sub">
+      <img
+        height="50"
+        src="{{ feed.user.profilePicture.url }}"
+        class="profile-pic-image"
+      />
+      <div class="link">@{{ feed.user.username }}</div>
+    </a>
+    <small>{{ feed.created|timesince }} ago</small>
+  </div>
 
-  <small
+  <small class="container-2"
     >commented at
     <a class="single-feed" href="{% url 'squad' feed.squad.id %}">
       <small>"{{ feed.squad }}"</small>
     </a>
   </small>
 
-  <p>
+  <p class="comment-brief">
     {{ feed }} {% if feed.body > 50 %}
     <span>....</span>
     {% endif %}
   </p>
-  <small>{{ feed.created|timesince }} ago</small>
+
   <hr />
 
   {% endfor %}

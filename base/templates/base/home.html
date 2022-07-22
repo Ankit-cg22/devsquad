@@ -1,44 +1,18 @@
 {% extends 'main.html' %} {% block content %}
 
-<style>
-  .home-container {
-    display: flex;
-    width: 100%;
-    border: 1px solid red;
-    max-width: 1400px;
-    margin: auto;
-  }
-
-  .side-bar {
-    width: 25%;
-    padding: 10px;
-  }
-
-  .single-topic {
-    padding: 10px;
-    margin-top: 15px;
-  }
-
-  .squads-container {
-    width: 50%;
-  }
-  .recent-activity-container {
-    width: 25%;
-  }
-
-  .single-feed {
-    color: black;
-    text-decoration: none;
-  }
-</style>
-
 <div class="home-container">
   <div class="side-bar">{% include 'base/topics-component.html' %}</div>
 
   <div class="squads-container">
-    <h5>{{ squad_count }} matching squads found</h5>
-    <a href="{% url 'create-squad' %}"> Create Squad </a>
-
+    <div class="squad-feed-title-container">
+      <div class="squad-container-1">
+        <h1 class="squads-main-head">Squads</h1>
+        <h5 class="squads-sub-head">{{ squad_count }} matching squads found</h5>
+      </div>
+      <a href="{% url 'create-squad' %}" class="link create-squad-button">
+        Create Squad
+      </a>
+    </div>
     {% include 'base/feed-component.html' %}
   </div>
 

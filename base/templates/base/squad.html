@@ -4,65 +4,176 @@
   .squad-container {
     display: flex;
     width: 100%;
+    flex-direction: row;
   }
 
   .squadMembers-container {
     width: 25%;
+    color: rgba(62, 61, 61, 0.8);
   }
+
+  .squad-members-bottom {
+    background-color: rgba(133, 220, 186, 0.5);
+    width: 90%;
+    margin: auto;
+    padding: 15px 10px;
+    min-height: 300px;
+    border-radius: 10px;
+  }
+
   .sqaud-info-container {
     width: 75%;
+    padding: 20px;
+  }
+  .squad-title {
+    color: rgb(62, 61, 61);
+  }
+  .squad-desc {
+    color: rgb(62, 61, 61);
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0px 10px;
+  }
+  .squad-member-single-container {
+    display: flex;
+    width: 45%;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .chats-container h2 {
+    color: rgb(62, 61, 61);
+  }
+
+  .chats-container {
+    margin-top: 15px;
+    color: rgb(62, 61, 61);
+  }
+
+  .comment-form {
+    width: 100%;
+  }
+
+  .chat-input {
+    width: 70%;
+    padding: 10px 20px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    border: 3px solid rgba(133, 220, 186, 0.5);
+  }
+
+  .post-button {
+    background-color: var(--primary-color);
+    padding: 8px;
+    border-radius: 10px;
+    color: rgb(62, 61, 61);
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 10%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .chat-top-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-top-container-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 15%;
+  }
+
+  .chat-desc {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+  .chat {
+    width: 50%;
+    margin: 10px;
+    background-color: rgba(133, 220, 186, 0.5);
+    border-radius: 10px;
+    padding: 10px;
   }
 </style>
 
 <div class="squad-container">
   <div class="sqaud-info-container">
-    <h1>Welcome to Squad : {{ squad.name }}</h1>
+    <h1 class="squad-title">{{ squad.name }}</h1>
 
-    <p>{{ squad.description }}</p>
+    <p class="squad-desc">{{ squad.description }}</p>
 
     <div class="chats-wrapper">
-      <div>Chats</div>
+      <h2>Chats</h2>
       <hr />
-
-      <div class="chats-container">
-        {% for chat in chats %}
-
-        <div class="chat">
-          <img height="50" src="{{ chat.user.profilePicture.url }}" />
-          <small>@{{chat.user}} {{chat.created|timesince}} ago</small>
-          <p>{{chat.body}}</p>
-        </div>
-
-        {% if chat.user == request.user %}
-        <a href="{% url 'delete-chat' chat.id %}">Delete</a>
-        {% endif %}
-        <hr />
-        {% endfor %}
-      </div>
 
       {% if user.is_authenticated %}
 
       <div class="comment-form">
         <form method="POST" action="">
           {% csrf_token %}
-          <input type="text" name="body" placeholder="write your message ..." />
-          <input type="submit" value="Post" />
+          <input
+            type="text"
+            name="body"
+            placeholder="write your message ..."
+            class="chat-input"
+          />
+          <input type="submit" value="Post" class="post-button" />
         </form>
       </div>
 
       {% endif %}
+
+      <div class="chats-container">
+        {% for chat in chats %}
+
+        <div class="chat">
+          <div class="chat-top-container">
+            <div class="chat-top-container-1">
+              <img
+                height="50"
+                src="{{ chat.user.profilePicture.url }}"
+                class="profile-pic-image"
+              />
+              <div>@{{chat.user.username}}</div>
+            </div>
+            <div>{{chat.created|timesince}} ago</div>
+          </div>
+
+          <p class="chat-desc">{{chat.body}}</p>
+
+          {% if chat.user == request.user %}
+          <a href="{% url 'delete-chat' chat.id %}" class="link">Delete</a>
+          {% endif %}
+          <hr />
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
   <div class="squadMembers-container">
     <h3>Squad Members</h3>
     <hr />
-    {% for member in squadMembers %}
-    <div>
-      <img height="50" src="{{member.profilePicture.url }}" />
-      <p>@{{ member.username }}</p>
+    <div class="squad-members-bottom">
+      {% for member in squadMembers %}
+
+      <a
+        class="squad-member-single-container link"
+        href="{% url 'profile' member.id %}"
+      >
+        <img class="profile-pic-image" src="{{member.profilePicture.url }}" />
+        <p>@{{ member.username }}</p>
+      </a>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 

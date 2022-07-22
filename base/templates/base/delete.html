@@ -1,8 +1,60 @@
 {% extends 'main.html' %} {% block content %}
-<form method="POST" action="">
-  {% csrf_token %}
-  <p>Are you sure to delete {{ obj }} ?</p>
-  <a href="{{ request.META.HTTP_REFERER }}">Go back</a>
-  <input type="submit" value="Confirm" />
-</form>
+
+<style>
+  .main-container {
+    width: 100%;
+  }
+  .sub-container,
+  .sub-container-1 {
+    margin: 20px auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgba(133, 220, 186, 0.5);
+    padding: 10px;
+  }
+
+  .sub-container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 40px;
+  }
+
+  .sub-container form {
+    font-size: 1.2rem;
+  }
+
+  .action-button {
+    padding: 10px;
+    margin-right: 10px;
+    background-color: rgba(133, 220, 186, 1);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  .action-buttons {
+    text-align: center;
+  }
+</style>
+
+<div class="main-container">
+  <div class="sub-container">
+    <form method="POST" action="">
+      {% csrf_token %}
+      <p>Are you sure to delete {{ obj }} ?</p>
+      <div class="action-buttons">
+        <a href="{{ request.META.HTTP_REFERER }}" class="link action-button"
+          >Go back</a
+        >
+        <input type="submit" value="Confirm" class="link action-button" />
+      </div>
+    </form>
+  </div>
+</div>
+
 {% endblock content %}

@@ -1,26 +1,43 @@
-<div>
+<style>
+  .squad-bottom-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+
+<div class="">
   {% for squad in squads %}
-  <div>
-    {% if request.user == squad.host %}
+  <div class="squad-feed-container">
+    <div class="squad-feed-container-1">
+      <div class="squad-feed-container-11">
+        <img
+          height="50"
+          src="{{ squad.host.profilePicture.url }}"
+          class="profile-pic-image"
+        />
+        <a href="{% url 'profile' squad.host.id %}" class="link"
+          >@{{squad.host.username}}</a
+        >
+      </div>
 
-    <a href="{% url 'update-squad' squad.id %} "> Update </a>
-    <a href="{% url 'delete-squad' squad.id %} "> Delete </a>
-
-    {% endif %}
-
-    <span>
-      <img height="50" src="{{ squad.host.profilePicture.url }}" />
-      <a href="{% url 'profile' squad.host.id %}"
-        >@{{squad.host.username}}</a
-      ></span
-    >
+      {% if request.user == squad.host %}
+      <div class="squad-feed-container-12">
+        <a href="{% url 'update-squad' squad.id %} " class="link"> Update </a>
+        <a href="{% url 'delete-squad' squad.id %} " class="link"> Delete </a>
+      </div>
+      {% endif %}
+    </div>
     <!-- c.host gives us access to the user -->
-    <a href="{% url 'squad' squad.id %}">
-      <h5>{{ squad.name }}</h5>
+    <a href="{% url 'squad' squad.id %}" class="link">
+      <h2 id="squad-name">{{ squad.name }}</h2>
     </a>
 
-    <small>{{ squad.topic.name }}</small>
-    <hr />
+    <div class="squad-bottom-container">
+      <h4 class="topic-tag">{{ squad.topic.name }}</h4>
+      <h4>{{squad.created|timesince }}</h4>
+    </div>
   </div>
   {% endfor %}
 </div>

@@ -1,9 +1,11 @@
-<h3>Topics</h3>
+<h3 class="topics-head">Topics</h3>
 <hr />
 <div>
   {% for topic in topics %}
   <div class="single-topic">
-    <a href=" {% url 'home'  %}?q={{topic.name}} ">{{ topic.name }}</a>
+    <a href=" {% url 'home'  %}?q={{topic.name}} " class="link"
+      >{{ topic.name }}</a
+    >
   </div>
   {% endfor %}
 </div>

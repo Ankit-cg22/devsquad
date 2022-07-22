@@ -1,37 +1,101 @@
-{% extends 'main.html' %} {% block content %} {% if page == 'login' %}
-<div>
-  <form method="POST" action="">
-    {% csrf_token %}
-    <!-- whenever we send POST method , we send the csrf token to ensure authenticity of the user  -->
+{% extends 'main.html' %} {% block content %}
 
-    <label>Email:</label>
-    <input type="text" name="email" placeholder="Enter username" />
+<style>
+  .main-container {
+    width: 100%;
+  }
+  .sub-container {
+    margin: 20px auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgba(133, 220, 186, 0.5);
+    padding: 10px;
+  }
 
-    <lable>Password:</lable>
-    <input type="password" name="password" placeholder="Enter password" />
+  .sub-container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+  }
 
-    <input type="submit" value="Login" />
-  </form>
+  .action-button {
+    padding: 10px;
+    margin-right: 10px;
+    background-color: rgba(133, 220, 186, 1);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  .form-group {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
 
-  <p>
-    Do not have an account ?
-    <span><a href="{% url 'register' %}"> Register </a></span>
-  </p>
+  .form-group label {
+    font-size: 20px;
+  }
+
+  .form-group input {
+    width: 70%;
+    padding: 10px 20px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    border: 3px solid rgba(133, 220, 186, 0.5);
+  }
+</style>
+{% if page == 'login' %}
+<div class="main-container">
+  <div class="sub-container">
+    <form method="POST" action="">
+      {% csrf_token %}
+      <!-- whenever we send POST method , we send the csrf token to ensure authenticity of the user  -->
+
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="text" name="email" placeholder="Enter username" />
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password" placeholder="Enter password" />
+      </div>
+
+      <input type="submit" value="Login" class="action-button" />
+    </form>
+
+    <p>
+      Do not have an account ?
+      <span><a href="{% url 'register' %}"> Register </a></span>
+    </p>
+  </div>
+
+  {% endif %} {% if page == 'register' %}
+
+  <div class="sub-container">
+    <form method="POST" action="">
+      {% csrf_token %}
+      <!-- {{ form.as_p }} -->
+      {% for field in form %}
+      <div class="form-group">
+        <label for="{{field.label}}">{{field.label}}</label>
+        {{field}}
+      </div>
+      {% endfor %}
+      <input type="submit" value="Register" class="link action-button" />
+    </form>
+
+    <p>
+      Already have an account ?
+      <span><a href="{% url 'login' %}"> Login </a></span>
+    </p>
+  </div>
 </div>
-
-{% endif %} {% if page == 'register' %}
-
-<div>
-  <form method="POST" action="">
-    {% csrf_token %} {{ form.as_p }}
-
-    <input type="submit" value="Register" />
-  </form>
-
-  <p>
-    Already have an account ?
-    <span><a href="{% url 'login' %}"> Login </a></span>
-  </p>
-</div>
-
 {% endif %} {% endblock %}

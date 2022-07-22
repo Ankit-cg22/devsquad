@@ -1,19 +1,74 @@
 {% extends 'main.html' %} {% block content %}
+<style>
+  .form-title {
+    color: rgba(62, 61, 61, 1);
+  }
 
-<h1>Edit Profile</h1>
+  .main-container {
+    width: 100%;
+    height: 80%;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-<form action="" method="POST" enctype="multipart/form-data">
-  {% csrf_token %} {% for field in form %}
-  <div class="form-group">
-    <label for="{{field.label}}">{{field.label}}</label>
-    {{field}}
+  .sub-container {
+    margin: 20px 0px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgba(133, 220, 186, 0.5);
+    padding: 10px;
+  }
+
+  .form-group {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    font-size: 20px;
+  }
+
+  .action-button {
+    padding: 10px;
+    margin-right: 10px;
+    background-color: rgba(133, 220, 186, 1);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .form-action {
+    text-align: center;
+  }
+</style>
+
+<div class="main-container">
+  <div class="sub-container">
+    <h1 class="form-title">Edit Profile</h1>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %} {% for field in form %}
+      <div class="form-group">
+        <label for="{{field.label}}">{{field.label}}</label>
+        {{field}}
+      </div>
+      {% endfor %}
+
+      <div class="form-action">
+        <a href="{% url 'profile' request.user.id %}" class="link action-button"
+          >Cancel</a
+        >
+        <button type="submit" class="link action-button">Update</button>
+      </div>
+    </form>
   </div>
-  {% endfor %}
-
-  <div class="form-action">
-    <a class="btn" href="{% url 'profile' request.user.id %}">Cancel</a>
-    <button class="btn" type="submit">Update</button>
-  </div>
-</form>
-
+</div>
 {% endblock content %}

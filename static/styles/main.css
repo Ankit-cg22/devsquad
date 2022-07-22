@@ -1,4 +1,229 @@
+:root{
+    --primary-color :  rgba(133, 220, 186 , 0.5);
+    --secondary-color : #edf5e1 ;
+    --background-color : rgb(246, 242, 242);
+    --text-color : rgb(62, 61, 61) ;
+    --text-color-light : rgba(62, 61, 61 , 0.8);
+}
+
+*{
+  font-family: 'Inter', sans-serif;
+}
 
 body{
-    background-color: bisque;
+    background-color:var(--background-color);
+    margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* navabar */
+.navbar{
+    display : flex ;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    padding: 10px 0px;
+}
+
+.logo{
+    width : 25%;
+    /* border : 1px solid red; */
+    display: flex;
+    align-items: center;
+}
+
+.logo h1{
+    margin-left : 20px;
+    color : var(--text-color);
+    text-decoration: none;
+}
+
+.logo{
+    text-decoration: none;
+}
+
+.search-bar{
+    width : 50%;
+    /* border : 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color : var(--text-color);
+}
+
+.search-bar-input{
+    width : 90%;
+    padding: 10px 20px;
+    font-size: 1rem;
+    outline:none;
+    border:none;
+    border-radius:10px ;
+    background-color: var(--secondary-color);
+}
+
+.profile-info{
+    width : 25%;
+    /* border : 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    padding: 5px 0px;
+}
+
+.profile-pic{
+    display : flex ;
+    width:40%;
+    justify-content : space-between ;
+    align-items : center;
+    margin-bottom: 2px;
+    color : var(--text-color);
+
+}
+
+.profile-pic-image{
+    height : 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+}
+
+.profile-action{
+    display : flex ;
+    width:45%;
+    justify-content : space-between ;
+    align-items : center;
+    color : var(--text-color);
+   
+}
+
+.link{
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* topics side widget */
+.single-topic{
+    font-weight: 500;
+    font-size: 1.2rem;
+    /* background-color: var(--primary-color); */
+    border-radius: 10px;
+    
+}
+
+.topics-head{
+    color : var(--text-color-light);
+    margin-left: 8px;
+}
+
+/* home feed */
+.home-container {
+    display: flex;
+    width: 100%;
+
+    max-width: 1400px;
+    margin: auto;
+    
+  }
+
+  .side-bar {
+    width: 25%;
+    padding: 10px;
+  }
+
+  .single-topic {
+    padding: 10px;
+    margin-top: 15px;
+  }
+
+  .squads-container {
+    width: 50%;
+    padding:0px 30px;
+  }
+  .recent-activity-container {
+    width: 25%;
+  }
+
+  .single-feed {
+    color: black;
+    text-decoration: none;
+  }
+
+  .squads-main-head{
+    color : var(--text-color);
+    font-size : 1.3rem;
+  }
+  .squads-sub-head{
+    color : var(--text-color-light);
+    font-size : 0.9rem;
+    margin-top:0
+  }
+
+  .squad-feed-title-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+
+  .create-squad-button{
+    background-color: var(--primary-color);
+    padding : 10px;
+    border-radius: 10px;
+    color : var(--text-color);
+    font-size : 1.2rem;
+    font-weight: 500;
+
+  }
+
+  /* squad feed*/
+  .squad-feed-container{
+    background-color: var(--primary-color);
+ 
+    border-radius : 10px;
+    padding : 20px 20px;
+    padding-bottom: 5px;
+    max-width:590px;
+    margin:20px auto;
+
+  }
+
+  .squad-feed-container-1{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .squad-feed-container-11{
+    width: 23%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .squad-feed-container-12{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+  }
+
+  .squad-name{
+    font-size: 2.5rem;
+    color : var(--text-color);
+    font-weight: 500;
+    margin:20px 0px;
+  }
+
+  .topic-tag{
+    background-color: rgba(133, 220, 186 , 0.8);
+    width: fit-content;
+    border-radius: 10px;
+    padding:10px 15px; 
+  }
+
+/* feed */
+.feed-profile-info{
+  display : flex ;
 }

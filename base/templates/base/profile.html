@@ -8,24 +8,56 @@
     width: 75%;
   }
 
+  .about-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px;
+  }
+
   .recent-activity {
     width: 25%;
   }
 
   .profile-image {
     height: 100px;
+    width: 100px;
     border-radius: 50%;
+  }
+
+  .edit-button {
+    background-color: var(--primary-color);
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .about-bottom {
+    text-align: center;
   }
 </style>
 
 <div class="main-container">
   <div class="about">
-    <img class="profile-image" src="{{ user.profilePicture.url }}" />
-    <h1>{{ user.username }}</h1>
+    <div class="about-top">
+      <img class="profile-image" src="{{ user.profilePicture.url }}" />
+      <h1>@{{ user.username }}</h1>
 
-    {% if user.id == request.user.id %}
-    <a href="{% url 'update-profile' %}">Edit Profile</a>
-    {% endif %} {% include 'base/feed-component.html' %}
+      {% if user.id == request.user.id %}
+      <a href="{% url 'update-profile' %}" class="edit-button link"
+        >Edit Profile</a
+      >
+      {% endif %}
+    </div>
+
+    <div class="about-bottom">
+      <h3>Squads by @{{user.username}}</h3>
+
+      {% include 'base/feed-component.html' %}
+    </div>
   </div>
 
   <div class="recent-activity">
