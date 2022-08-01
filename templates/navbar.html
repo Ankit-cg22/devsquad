@@ -1,41 +1,52 @@
 <!-- {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}" /> -->
 
-<div class="navbar">
-  <a href="/" class="logo">
-    <h1>DevSquad</h1>
-  </a>
+<style>
+  .navabar-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+  }
+</style>
 
-  <!-- search form  -->
-  <form method="GET" action="{% url 'home' %}" class="search-bar">
-    <input
-      type="text"
-      name="q"
-      placeholder="Search Squads... "
-      class="search-bar-input"
-    />
-    <!-- when someone enters something and hits enter this is added to url as ?q=xyz , hence filtering the content on home page -->
-  </form>
-
-  <div class="profile-info">
-    {% if request.user.is_authenticated %}
-    <a class="profile-pic link" href="{% url 'profile' request.user.id %}">
-      <img
-        height="50"
-        src="{{ user.profilePicture.url }}"
-        class="profile-pic-image"
-      />
-      <p>{{ request.user.username }}</p>
+<div class="navabar-wrapper">
+  <div class="navbar">
+    <a href="/" class="logo">
+      <h1>DevSquad</h1>
     </a>
-    <div class="profile-action">
-      <a href="{% url 'logout' %}" class="link">Logout</a>
-      <a href="{% url 'update-profile' %}" class="link">Edit Profile</a>
+
+    <!-- search form  -->
+    <form method="GET" action="{% url 'home' %}" class="search-bar">
+      <input
+        type="text"
+        name="q"
+        placeholder="Search Squads... "
+        class="search-bar-input"
+      />
+      <!-- when someone enters something and hits enter this is added to url as ?q=xyz , hence filtering the content on home page -->
+    </form>
+
+    <div class="profile-info">
+      {% if request.user.is_authenticated %}
+      <a class="profile-pic link" href="{% url 'profile' request.user.id %}">
+        <img
+          height="50"
+          src="{{ user.profilePicture.url }}"
+          class="profile-pic-image"
+        />
+        <p>{{ request.user.username }}</p>
+      </a>
+      <div class="profile-action">
+        <a href="{% url 'logout' %}" class="link">Logout</a>
+        <a href="{% url 'update-profile' %}" class="link">Edit Profile</a>
+      </div>
+      {% else %}
+      <div class="profile-action">
+        <a href="{% url 'login' %}" class="link">Login</a>
+        <a href="{% url 'register' %}" class="link"> Register</a>
+      </div>
+      {% endif %}
     </div>
-    {% else %}
-    <div class="profile-action">
-      <a href="{% url 'login' %}" class="link">Login</a>
-      <a href="{% url 'register' %}" class="link"> Register</a>
-    </div>
-    {% endif %}
   </div>
 </div>

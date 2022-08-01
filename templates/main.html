@@ -28,10 +28,18 @@
           {% endfor %}
       </ul>
     {% endif %}
-
+    
+    <div class="block-content">
     {% block content %}
     <!--  this is to specify the area where we want to place our child templates  -->
 
     {% endblock %}
+  </div>
+
+  <style>
+    .block-content{
+      margin-top:10px;
+    }
+  </style>
   </body>
 </html>
